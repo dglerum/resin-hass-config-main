@@ -50,7 +50,6 @@ http:
 updater:
 discovery:
   ignore:
-    - samsung_tv
     - apple_tv
 
 conversation:
