@@ -54,15 +54,6 @@ history:
 logbook:
 map:
 
-####################################################
-#                                                  #
-#                 Customizations                   #
-#                                                  #
-####################################################
-
-#customizer:
-#  custom_ui: local
-
 frontend:
 #  themes: !include themes.yaml
 #  extra_html_url:
