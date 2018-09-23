@@ -1,0 +1,24 @@
+####################################################
+#                                                  #
+#                      System                      #
+#                                                  #
+####################################################
+
+- action:
+  - delay: 00:05  # Waits 5 minutes
+  - service: homekit.start
+  alias: Start Apple HomeKit
+  condition: []
+  id: '1523506259174'
+  trigger:
+  - platform: homeassistant
+    event: start
+
+- action:
+  - service: logger.set_level
+    data_template:
+      homeassistant.components: "{{ trigger.to_state.state }}"
+  alias: Log Level
+  trigger:
+  - platform: state
+    entity_id: input_select.log_level

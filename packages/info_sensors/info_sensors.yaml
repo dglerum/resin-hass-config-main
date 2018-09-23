@@ -1,0 +1,107 @@
+#################################################################
+#                                                               #
+#                     Packages/Info Sensors   OK                #
+#                                                               #
+#################################################################
+
+#################################################################
+#                                                               #
+#                          Customize                            #
+#                                                               #
+#################################################################
+
+homeassistant:
+  customize:
+    sensor.eur_usd:
+      icon: mdi:home-currency-usd
+      friendly_name: "EUR_USD"
+    sensor.gbp_usd:
+      icon: mdi:home-currency-usd
+      friendly_name: "USD to GBP"
+    sensor.usd_to_gbp:
+      icon: mdi:currency-usd
+    sensor.eur_to_usd:
+      icon: mdi:currency-usd
+    sensor.bitcoin_round:
+      icon: mdi:bitcoin
+    sensor.stats_tv:
+      icon: mdi:theater
+      friendly_name: 'TV (7 days)'
+    sensor.stats_work:
+      icon: mdi:domain
+      friendly_name: 'Working (7 days)'
+
+#################################################################
+#                                                               #
+#                            Groups                             #
+#                                                               #
+#################################################################
+
+group:
+  currency:
+    name: Currency
+    view: no
+    entities:
+      - sensor.eur_to_usd
+      - sensor.bitcoin_round
+
+  stats:
+    name: Stats
+    view: no
+    entities:
+      - sensor.stats_tv
+      - sensor.stats_work
+
+#################################################################
+#                                                               #
+#                          Sensors                              #
+#                                                               #
+#################################################################
+
+sensor:
+  - platform: alpha_vantage
+    api_key: 207F2GBBRXWZJZW3
+    foreign_exchange:
+      - from: EUR
+        to: USD
+        name: EUR_USD
+      - from: USD
+        to: GBP
+        name: USD_GBP
+      - from: BTC
+        to: EUR
+        name: Bitcoin
+
+## AUS to GBP Conversion - Did this as for some reason alpha vantage doesn't provide AUD to GBP Rates propably due to being USD based site
+  - platform: template
+    sensors:
+      eur_to_usd:
+        unit_of_measurement: 'EUR'
+        value_template: "{{ states.sensor.eur_usd.state|round(2) }}"
+        friendly_name: 'EUR to USD'
+      usd_to_gbp:
+        unit_of_measurement: 'USD'
+        value_template: "{{ states.sensor.usd_gbp.state|round(2) }}"
+        friendly_name: 'USD to GBP'
+      bitcoin_round:
+        unit_of_measurement: 'EUR'
+        value_template: "{{ states.sensor.bitcoin.state|round }}"
+        friendly_name: 'Bitcoin'
+
+  - platform: history_stats
+    name: stats_tv
+    entity_id: media_player.media_4k_tv
+    state: 'on'
+    type: time
+    end: '{{ now() }}'
+    duration:
+      days: 7
+
+  - platform: history_stats
+    name: stats_work
+    entity_id: sensor.james
+    state: 'Powertec'
+    type: time
+    end: '{{ now() }}'
+    duration:
+      days: 7

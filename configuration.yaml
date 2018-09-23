@@ -1,0 +1,155 @@
+###################################################
+#                                                 #
+#     Home Assistant Main Configuration File      #
+#                                                 #
+###################################################
+
+homeassistant:
+  name: !secret name
+  temperature_unit: C
+  time_zone: Europe/Brussels
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 0
+  unit_system: metric
+  customize: !include includes/customize.yaml
+  packages: !include_dir_named packages
+
+###################################################
+#                                                 #
+#                     Panel                       #
+#                                                 #
+###################################################
+
+# panel_iframe:
+#   configurator:
+#     title: Configurator
+#     icon: mdi:wrench
+#     url: configurator url
+#   nodered:
+#     title: Node-Red
+#     icon: mdi:shuffle-variant
+#     url: node red url
+#   sonweb:
+#     title: SonWEB
+#     icon: mdi:lightbulb-on
+#     url:  sonweb url
+
+####################################################
+#                                                  #
+#                     Enables                      #
+#                                                  #
+####################################################
+
+config:
+
+http:
+  api_password: !secret http_password
+  #base_url: 192.168.1.55:8123
+
+updater:
+discovery:
+conversation:
+history:
+logbook:
+map:
+
+####################################################
+#                                                  #
+#                 Customizations                   #
+#                                                  #
+####################################################
+
+#customizer:
+#  custom_ui: local
+
+frontend:
+#  themes: !include themes.yaml
+#  extra_html_url:
+#    - /local/custom_ui/state-card-custom-ui.html
+#  extra_html_url_es5:
+#    - /local/custom_ui/state-card-custom-ui-es5.html
+
+####################################################
+#                                                  #
+#                      Logger                      #
+#                                                  #
+####################################################
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.mqtt: debug
+    homeassistant.components.automation: debug
+  #logs:
+  #  custom_components.fan.xiaomi_miio_fan: debug
+  #  miio: debug
+
+####################################################
+#                                                  #
+#                     Recorder                     #
+#                                                  #
+####################################################
+
+# recorder:
+  # purge_interval: 2
+  # purge_keep_days: 5
+
+####################################################
+#                                                  #
+#                      Cloud                       #
+#                                                  #
+####################################################
+
+cloud:
+
+####################################################
+#                                                  #
+#                      MQTT                        #
+#                                                  #
+####################################################
+
+mqtt:
+  broker: 192.168.1.162
+  port: 1883
+
+####################################################
+#                                                  #
+#                      Apple HomeKit               #
+#                                                  #
+####################################################
+
+homekit:
+  auto_start: false
+  # ip_address: 192.168.1.45
+  filter:
+    include_entities:
+      ## Lights
+      - light.fibaro_kitchen_dimmer_level
+      - light.fibaro_table_dimmer_level
+      - light.fibaro_hallway_dimmer_level
+      - light.fibaro_stair_dimmer_level
+      ## Switches
+      - switch.radio
+      - switch.wemo_livingroom
+      - switch.wemo_bedroom
+      - switch.tv
+      - switch.kodi
+      ## Sensors
+      - sensor.fibaro_system_fgsd002_smoke_sensor_temperature
+      ## Device Tracker
+      # - device_tracker.davy_bayesian
+
+####################################################
+#                                                  #
+#                    Includes                      #
+#                                                  #
+####################################################
+
+zone: !include includes/zones.yaml
+group: !include includes/groups.yaml
+automation: !include includes/automations.yaml
+script: !include includes/scripts.yaml
+media_player: !include includes/media_players.yaml
+shell_command: !include includes/shell_commands.yaml
+input_select: !include includes/input_selects.yaml

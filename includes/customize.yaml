@@ -1,0 +1,58 @@
+###################################################
+#                                                 #
+#                  Group Order                    #
+#                                                 #
+###################################################
+
+group.default_view:
+  order: 1
+
+group.security:
+  order: 2
+
+group.downstairs:
+  order: 3
+
+group.play_room:
+  order: 4
+
+group.patio:
+  order: 5
+
+
+###################################################
+#                                                 #
+#               Morning Cartoons                  #
+#                                                 #
+###################################################
+
+script.1521695976118:
+  icon: mdi:youtube-tv
+  friendly_name: "Morning Cartoons"
+
+script.1521694771100:
+  icon: mdi:kodi
+  friendly_name: "Evening TV"
+  assumed_state: false
+
+
+###################################################
+#                                                 #
+#                     Music                       #
+#                                                 #
+###################################################
+
+switch.spotify_kitchen:
+  icon: mdi:spotify
+  friendly_name: "Spotify Kitchen"
+  assumed_state: false
+
+###################################################
+#                                                 #
+#                     Xiaomi                      #
+#                                                 #
+###################################################
+
+binary_sensor.switch_158d000213108e:
+  friendly_name: Door Bell Switch
+  
