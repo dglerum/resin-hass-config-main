@@ -51,7 +51,6 @@ updater:
 discovery:
   ignore:
     - apple_tv
-    - harmony
 
 conversation:
 history:
